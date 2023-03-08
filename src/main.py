@@ -1,5 +1,6 @@
 import os
 import discord
+import json
 
 client = discord.Client(intents=discord.Intents.all())
 
@@ -14,5 +15,13 @@ async def on_message(message):
         if message.content == "ping":
             await message.channel.send("pong")
 
-bot_token = os.environ['FH_BOT_TOKEN']
+# check if environment variable (production)
+if 'FH_BOT_TOKEN' in os.environ:
+    bot_token = os.environ['FH_BOT_TOKEN']
+else:
+    # if not, read from config.json
+    with open('config.json') as f:
+        config = json.load(f)
+        bot_token = config['BOT_TOKEN']
+    
 client.run(bot_token)
