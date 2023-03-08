@@ -1,7 +1,7 @@
 import os
 import discord
 
-discord.Client(intents=discord.Intents.all())
+client = discord.Client(intents=discord.Intents.all())
 
 @client.event
 async def on_ready():
@@ -14,5 +14,5 @@ async def on_message(message):
         if message.content == "ping":
             await message.channel.send("pong")
 
-my_secret = os.environ['BOT_TOKEN']
-client.run(my_secret)
+bot_token = os.environ['FH_BOT_TOKEN']
+client.run(bot_token)

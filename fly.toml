@@ -1,0 +1,11 @@
+# fly.toml file generated for fugitive-heist on 2023-03-07T20:44:35-07:00
+
+app = "fugitive-heist"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[env]
+
+[experimental]
+  auto_rollback = true
