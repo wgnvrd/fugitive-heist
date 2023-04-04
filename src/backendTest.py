@@ -1,8 +1,7 @@
 #MongoDB basics: https://www.youtube.com/watch?v=pWbMrx5rVBE
 #Atlas with pymongo: https://www.youtube.com/watch?v=VQnmcBnguPY
 #Figure out how to limit values (just guards/thieves), how to modify existing documents with object ID, require capture field for guards
-
-
+#   There might be something called object templates? We can make one for each entity
 
 from pymongo import MongoClient
 password = input("password for konohatomonoduval: ")
