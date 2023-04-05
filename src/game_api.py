@@ -1,5 +1,9 @@
 from pymongo import MongoClient
-password = input("password for konohatomonoduval: ")
+import json
+
+with open('..//config.json') as f:
+        config = json.load(f)
+        password = config['MONGO_ PASSWORD']
 client = MongoClient("mongodb+srv://konohatomonoduval:" + password + "@anton-1.gzjzi9c.mongodb.net/test") 
 db = client.get_database('fugitive_heist')
 current_game = db.current_game
@@ -27,7 +31,7 @@ class GameAPI():
         if team == "guards":
             new_player.update({"captures":0})
         elif team == "fugitives":
-            new_player.update({"gem_held":})
+            new_player.update({"gem_held":0})
         current_game.insert_one()
         
 
