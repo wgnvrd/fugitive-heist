@@ -1,11 +1,13 @@
 import os
 import discord
 import json
-# from game_api import GameAPI
+from game_api import GameAPI
 
 client = discord.Client(intents=discord.Intents.all())
 channel = 0
 specific_message = 0
+global gamee
+gamee = GameAPI()
 
 @client.event
 async def on_ready():
@@ -18,11 +20,13 @@ async def on_message(message):
         if message.content == "ping":
             await message.channel.send("pong")
         if message.content == "Start!":
-            specific_message = await message.channel.send("```React here to join a team \n 🔴 Fugitives \n 🔵 Guards```")
-            await specific_message.add_reaction('🔴')
-            await specific_message.add_reaction('🔵')
-            king = message.author
-            running = True;
+            if gamee.getStatus != "Running":
+                specific_message = await message.channel.send("```React here to join a team \n 🔴 Fugitives \n 🔵 Guards```")
+                await specific_message.add_reaction('🔴')
+                await specific_message.add_reaction('🔵')
+                gamee.set_game_leader(message.author.id)
+                gamee.start()
+                
 
 @client.event
 async def on_reaction_add(reaction, user):
@@ -37,6 +41,7 @@ async def on_reaction_add(reaction, user):
         if GuardRole in user.roles:
             await user.remove_roles(GuardRole)
         await user.add_roles(FugRole)
+        if 
     elif reaction.emoji == "🔵":
         if FugRole in user.roles:
             await user.remove_roles(FugRole)
@@ -46,10 +51,8 @@ async def on_reaction_add(reaction, user):
 if 'FH_BOT_TOKEN' in os.environ:
     bot_token = os.environ['FH_BOT_TOKEN']
 else:
-    # if not, read from config.json
-    # with open('..//config.json') as f:
-    #     config = json.load(f)
-    #     bot_token = config['BOT_TOKEN']
-    bot_token = "MTA4MDMzNTg0NTY5NDkwMjMwMg.GRTl-O.pefR9Xoj9eRfICxw_zAvmTbGVcnLArePmRaHRE"
+    with open('config.json') as f:
+        config = json.load(f)
+        bot_token = config['BOT_TOKEN']
     
 client.run(bot_token)
