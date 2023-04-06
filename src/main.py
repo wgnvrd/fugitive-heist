@@ -26,6 +26,7 @@ async def on_message(message):
                 await specific_message.add_reaction('🔵')
                 gamee.set_game_leader(message.author.id)
                 gamee.start()
+        if message.author.id == gamee.get_game_leader():
                 
 
 @client.event
@@ -41,7 +42,6 @@ async def on_reaction_add(reaction, user):
         if GuardRole in user.roles:
             await user.remove_roles(GuardRole)
         await user.add_roles(FugRole)
-        if 
     elif reaction.emoji == "🔵":
         if FugRole in user.roles:
             await user.remove_roles(FugRole)
