@@ -41,6 +41,14 @@ class GameAPI():
             new_player.update({"captures":0})
         elif team == "fugitives":
             new_player.update({"gem_held":[], "has_supplies":True, "is_tagged":False})
+<<<<<<< HEAD
+=======
+
+        current_game.insert_one(new_player)
+            new_player.update({"gem_held":0})
+        current_game.insert_one()
+        
+>>>>>>> 0f386cb248e653368056558dda12fd51aa760f79
 
         current_game.insert_one(new_player)
         new_player.update({"gem_held":0})
