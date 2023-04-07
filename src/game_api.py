@@ -16,7 +16,7 @@ class GameAPI():
     def __init__(self):
         self.game_state = {
             'game_id': 1,
-            'status': 'Running',
+            'status': 'Off',
             'leader': '', # a user id
             'fugitives': [], # stores references to player_ids
             'guards': [],
@@ -24,19 +24,33 @@ class GameAPI():
         }
     
     def set_game_leader(self, discord_id):
-        self.game_state.leader = discord_id
+        self.game_state["leader"] = discord_id
+
+    def start(self):
+        self.game_state["status"] = "Running"
+    
+    def getStatus(self):
+        return self.game_state["status"]
 
     def get_game_leader(self):
-        return self.game_state.leader
+        return self.game_state["leader"]
 
     def set_new_player(self, discord_id, team):
         new_player = {"discord_id":discord_id, "team":team, }
         if team == "guards":
             new_player.update({"captures":0})
         elif team == "fugitives":
-            new_player.update({"gem_held":0, "has_supplies":True, "is_tagged":False})
+            new_player.update({"gem_held":[], "has_supplies":True, "is_tagged":False})
+<<<<<<< HEAD
+=======
 
         current_game.insert_one(new_player)
+            new_player.update({"gem_held":0})
+        current_game.insert_one()
+        
+
+    def create_player(self, name, team):
+        pass     
 
     def create_gem(self):
         # maybe it's better to use a python class for this
