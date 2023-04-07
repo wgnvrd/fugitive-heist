@@ -26,8 +26,8 @@ class GameAPI():
     def set_game_leader(self, discord_id):
         self.game_state["leader"] = discord_id
 
-    def start(self):
-        self.game_state["status"] = "Running"
+    def setStatus(self, string):
+        self.game_state["status"] = string
     
     def getStatus(self):
         return self.game_state["status"]
@@ -41,18 +41,11 @@ class GameAPI():
             new_player.update({"captures":0})
         elif team == "fugitives":
             new_player.update({"gem_held":[], "has_supplies":True, "is_tagged":False})
-<<<<<<< HEAD
-=======
-
-        current_game.insert_one(new_player)
-            new_player.update({"gem_held":0})
-        current_game.insert_one()
-        
->>>>>>> 0f386cb248e653368056558dda12fd51aa760f79
 
         current_game.insert_one(new_player)
         new_player.update({"gem_held":0})
-        current_game.insert_one()   
+        current_game.insert_one()
+        
 
     def create_gem(self):
         # maybe it's better to use a python class for this
