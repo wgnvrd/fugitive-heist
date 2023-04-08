@@ -3,7 +3,7 @@ import json
 
 with open('config.json') as f:
         config = json.load(f)
-        password = config['MONGO_ PASSWORD']
+        password = config['MONGO_PASSWORD']
 client = MongoClient("mongodb+srv://konohatomonoduval:" + password + "@anton-1.gzjzi9c.mongodb.net/test") 
 db = client.get_database('fugitive_heist')
 current_game = db.current_game
@@ -41,10 +41,10 @@ class GameAPI():
             new_player.update({"captures":0})
         elif team == "fugitives":
             new_player.update({"gem_held":[], "has_supplies":True, "is_tagged":False})
+
         current_game.insert_one(new_player)
         new_player.update({"gem_held":0})
-        current_game.insert_one()
-        
+        current_game.insert_one()   
 
     def create_gem(self):
         # maybe it's better to use a python class for this

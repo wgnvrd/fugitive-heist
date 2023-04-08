@@ -3,6 +3,7 @@ import discord
 import json
 from game_api import GameAPI
 import asyncio
+from qr_reader import read_qr
 
 client = discord.Client(intents=discord.Intents.all())
 channel = 0
@@ -42,10 +43,29 @@ async def on_message(message):
                     await timer(time, timeMessage)
                     await message.channel.send("```Game End```")
                     gamee.setStatus("Off")
-                
-                
+        if message.attachments:
+            roles = [role.name for role in message.author.roles]
+            cdn_url = message.attachments[0].url
+            if "Fugitives" in roles:
+                # Process QR code here
+                await message.channel.send("Processing QR code...")
+                await message.channel.send(cdn_url)
+                data = read_qr(url=cdn_url)
+                if data:
+                    await message.channel.send(data)
+                else:
+                    await message.channel.send("No QR code found.")
+            elif "Guards" in roles:
+                # Tag here
+                pass
+            else:
+                pass
 
-                
+def scan_qr_code(cdn_url):
+    pass
+
+def tag_player():
+    pass
 
 @client.event
 async def on_reaction_add(reaction, user):

@@ -1,2 +1,6 @@
 discord.py[voice]==2.2.2
 pymongo==4.3.3
+opencv-python==4.7
+numpy==1.23
+qrcode==7.4
+pyzbar==0.1.9
